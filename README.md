@@ -1,176 +1,144 @@
-# cyber-threat-intel-alerts
-Cyber Threat Intelligence Ingestion & Alerting Project
-Overview
+# AI-Driven Cybersecurity Threat Intelligence Pipeline
 
-This project defines and implements a Cyber Threat Intelligence (CTI) ingestion and alerting architecture designed to collect external cybersecurity data feeds and generate daily, actionable intelligence summaries using a ChatGPT-based model.
+## Overview
 
-The system is developed from an IT Engineer perspective, emphasizing reliability, data trust, and operational clarity before introducing automation, AI-driven analysis, or outsourced development components.
+This repository documents the design and implementation roadmap for an IT-engineered pipeline that integrates multiple cybersecurity threat intelligence data feeds into an AI-driven analysis engine. The system is designed to **ingest, normalize, analyze, and distribute threat intelligence** in a structured and automated manner.
 
-Project Objective
+The primary function of this solution is to deliver **daily, actionable cybersecurity alerts** focused on zero-day vulnerabilities, emerging threats, and high-impact advisories while maintaining scalability, reliability, and operational control.
 
-The primary objective of this project is to design a scalable and maintainable framework for integrating external cybersecurity intelligence feeds (e.g., Dark Reading, AlienVault OTX, CISA alerts) into a centralized pipeline that supports:
+---
 
-Reliable data ingestion
+## Engineering Objective
 
-Validation and normalization of threat intelligence
+From an IT Engineering standpoint, the objective of this project is to:
 
-Automated or semi-automated analysis
+- Centralize external cybersecurity threat intelligence sources
+- Automate data ingestion and preprocessing workflows
+- Integrate AI-based analysis for contextual threat summarization
+- Deliver consistent, reliable alerts to security stakeholders
+- Build a modular system that can be maintained, extended, or outsourced
 
-AI-assisted alerting for zero-day vulnerabilities and emerging threats
+This project demonstrates applied IT engineering principles across automation, systems integration, data pipelines, and operational monitoring.
 
-This project is structured to support outsourcing parts of the integration effort while maintaining clear technical ownership and governance.
+---
 
-Engineering Approach
+## High-Level System Flow
 
-The project follows a phased, risk-aware approach to avoid premature automation or AI integration. Each phase must be validated before progressing to the next to ensure accuracy, maintainability, and operational trust.
+**Threat Intelligence Sources → Ingestion Layer → Processing & Normalization → AI Analysis → Alert Delivery**
 
-Phase 1 — Requirements & Data Source Definition
-Objective
+Each layer is independently managed to allow for system flexibility, fault isolation, and future enhancement without disrupting the entire pipeline.
 
-Define clear requirements and select an initial set of authoritative cybersecurity data sources while controlling complexity.
+---
 
-Data Source Options
+## Phase 1: Requirements Definition & Data Sources
 
-Option A: Well-known external feeds
+### Purpose
+Identify, validate, and onboard reliable cybersecurity threat intelligence feeds that provide structured and timely data.
 
-CISA Known Exploited Vulnerabilities (KEV)
+### Initial Data Sources
+- **Dark Reading** – Cybersecurity news, vulnerabilities, and threat research
+- **AlienVault OTX** – Open threat intelligence indicators and community pulses
+- **CISA Alerts / KEV Catalog** – Government-issued advisories and exploited vulnerabilities
 
-AlienVault OTX
+### Engineering Considerations
+- Start with a limited number of trusted, high-signal feeds
+- Prefer sources with API or RSS access for automation
+- Balance data volume against processing complexity
 
-Dark Reading
+---
 
-Parameters
+## Phase 2: Integration & Automation Framework
 
-Start with a small number of sources to reduce complexity
+### Purpose
+Design and implement an automated ingestion framework that reliably collects threat data on a scheduled basis.
 
-Balance coverage vs. integration effort
+### Integration Options
+- **Python-Based Middleware**
+  - Scheduled execution using cron or task scheduler
+  - API polling, RSS parsing, and structured data extraction
+  - Logging, validation, and error handling
+- **Low-Code / No-Code Automation**
+  - Reduced development overhead
+  - Faster onboarding for non-developer teams
 
-Document justification for each source selected
+### Automation Design Parameters
+- Fully automated ingestion vs. staged ingestion with manual validation
+- Retry logic and failure handling
+- Centralized logging for troubleshooting and auditing
 
-Phase 2 — Integration & Automation Framework
-Objective
+**Recommended Engineering Approach:**  
+Automated ingestion with controlled validation during early deployment phases.
 
-Design and implement the ingestion mechanism used to collect data from external feeds.
+---
 
-Integration Options
+## Phase 3: AI Analysis & Alert Delivery
 
-Option A: API aggregation or middleware
+### Purpose
+Transform raw threat data into meaningful, actionable intelligence using AI-driven analysis.
 
-Python-based ingestion scripts
+### AI Integration
+- Normalized threat data is passed to the AI model on a scheduled basis
+- Prompt logic focuses on:
+  - Zero-day and actively exploited vulnerabilities
+  - Severity, impact, and affected technologies
+  - High-level mitigation guidance
 
-No-code or low-code integration platforms
+### Alert Delivery Channels
+- Email-based summaries
+- Internal dashboards
+- Chat-based delivery platforms (Slack, Teams, or web interface)
 
-Option B: Direct tool integration
+### Configuration Options
+- Alert frequency: daily (default), twice daily, or near real-time
+- Output format: executive summary, analyst-level report, or quick digest
 
-Native API integration (e.g., AlienVault OTX API)
+---
 
-Centralized ingestion into a common format or repository
+## Phase 4: Testing, Validation, and Iteration
 
-Parameters
+### Purpose
+Ensure system reliability, data accuracy, and operational usefulness.
 
-Decide between:
+### Testing Activities
+- Validate data ingestion integrity
+- Verify AI output consistency and relevance
+- Monitor false positives and alert noise
 
-Fully automated ingestion
+### Feedback Loop
+- Analysts review alert output
+- Adjust prompts, filters, and source prioritization
+- Document changes for system traceability
 
-Semi-automated ingestion with manual review
+---
 
-Ensure ingestion is reliable, logged, and observable
+## Security & Operational Considerations
 
-Prepare the system for outsourced implementation with clear interfaces
+- Store credentials and API keys using environment variables
+- Restrict access to alert dashboards and outputs
+- Validate external data before processing
+- Maintain logs for auditing, monitoring, and troubleshooting
 
-Phase 3 — ChatGPT Interface & Alerting
-Objective
+---
 
-Leverage ChatGPT as a downstream intelligence layer to transform validated CTI data into human-readable insights and alerts.
+## Creating the Visual Architecture Diagram
 
-Interface Options
+### Purpose
+Provide a clear, visual representation of the system architecture for documentation, stakeholder communication, and future scaling.
 
-Option A: Scheduled summaries
+### Diagram Components
+The visual architecture diagram should include:
+- External threat intelligence sources
+- Ingestion and automation layer
+- Processing and normalization logic
+- AI analysis component
+- Alert delivery channels
+- Logging and monitoring components
 
-Daily or twice-daily AI-generated summaries
+### Recommended Diagram Tools
+- Draw.io
+- Lucidchart
+- Microsoft Visio
+- Figma (for documentation-ready visuals)
 
-Delivered via email or simple dashboard
-
-Option B: Interactive querying
-
-Chat-based interface for querying specific feeds or threats
-
-On-demand analysis and context retrieval
-
-Parameters
-
-Define alert frequency (daily, twice daily, real-time)
-
-Define delivery format (email, dashboard, chat interface)
-
-Ensure AI operates only on validated inputs
-
-Phase 4 — Testing, Iteration & Feedback
-Objective
-
-Validate output quality and continuously improve intelligence relevance.
-
-Testing Options
-
-Option A: Pilot deployment
-
-Limited set of feeds
-
-Small group of analysts or stakeholders
-
-Option B: Feedback-driven refinement
-
-Collect analyst feedback
-
-Adjust prompts, data selection, and summarization logic
-
-Parameters
-
-Establish a clear feedback loop
-
-Define how outsourced contributors incorporate refinements
-
-Track improvements in signal-to-noise ratio
-
-Design Principles
-
-Correctness before automation
-
-Validation before AI
-
-Reliability before scale
-
-Clear ownership, even when outsourcing
-
-Phased delivery with validation gates
-
-Repository Structure (Planned)
-cyber-threat-intel-alerting/
-├── ingest/        # External data ingestion logic
-├── docs/          # Architecture, requirements, and phase documentation
-├── automation/    # Scheduling and orchestration (later phases)
-├── alerts/        # Alert formatting and delivery logic
-├── .gitignore
-└── README.md
-
-Outsourcing Considerations
-
-This project is designed so that:
-
-External contributors can work on clearly defined components
-
-Interfaces and expectations are documented
-
-Core architectural decisions remain controlled
-
-Feedback and iteration cycles are explicit
-
-Current Status
-
-Phase: Requirements & Architecture Definition
-
-Next Step: Finalize initial data sources and ingestion approach
-
-Summary
-
-This project establishes a structured, IT Engineer–led approach to building a CTI ingestion and AI-assisted alerting system. By prioritizing data trust, phased execution, and operational clarity, the system is designed to scale responsibly and support real-world security operations.
+### Diagram Placement
+The finalized architecture diagram should be stored in:
