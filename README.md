@@ -39,12 +39,6 @@ AlienVault OTX
 
 Dark Reading
 
-Option B: Custom or internal feeds
-
-Internal vulnerability scan reports
-
-Internal incident or threat reports (if available)
-
 Parameters
 
 Start with a small number of sources to reduce complexity
